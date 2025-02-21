@@ -35,13 +35,13 @@ CodeCollab is a powerful, real-time code collaboration platform that lets develo
 2. **Set up the Server**:
    ```bash
    cd Server
-   npm install
+   yarn install --force
    npm start
 3. **Set up the Client**:
    ```bash
    cd ../Client
-   npm install
-   npm start
+   yarn install --force
+   yarn dev
 4. **Open in Browser**
    Go to [http://localhost:5173](http://localhost:5173) and Start Collaborating!
  
