@@ -1,0 +1,9 @@
+.custom-dropdown-item {
+    color: white !important;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.custom-dropdown-item:hover {
+    background-color: gray !important;
+    color: white !important;
+}
