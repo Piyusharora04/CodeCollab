@@ -1,0 +1,114 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom styles */
+
+.hero {
+  position: relative;
+  z-index: 1; /* Ensures text is above the background */
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/Images/design3.svg");
+  background-position: top right;
+  background-size: 40%;
+  
+  -webkit-mask-image: linear-gradient(to bottom left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to bottom left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+
+  z-index: -1;
+
+}
+
+@keyframes smooth-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-70%);
+  }
+}
+
+.marquee-wrapper {
+  display: flex;
+  animation: smooth-marquee 10s linear infinite; /* Adjust speed here */
+  width: max-content;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; /* Consistent spacing */
+  flex-shrink: 0;
+}
+
+.marquee-track img {
+  width: auto;
+  height: 5rem;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+
+
+@media(min-width: 1020px){
+  .hero{
+    padding-left: 4rem;
+  }
+  .headings{
+    padding-top: 3.5rem;
+  }
+}
+
+.feature-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.stats-section {
+  background: linear-gradient(135deg, #6610f2, #6f42c1);
+}
+
+.stats-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.testimonial-card {
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.auth-modal {
+  backdrop-filter: blur(5px);
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.btn-room {
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.btn-room:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+#join-room:hover{
+  color: white;
+}

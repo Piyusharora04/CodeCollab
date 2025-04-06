@@ -1,0 +1,14 @@
+#login-btn{
+    outline:none;
+    border: 1px solid white ;
+    transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+}
+#login-btn:hover{
+    transform: scale(1.08);
+}
+#signup-btn{
+    transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+}
+#signup-btn:hover{
+    transform: scale(1.08);
+}
