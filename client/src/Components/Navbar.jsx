@@ -18,7 +18,7 @@ function Navbar({loginVal, signupVal}) {
 
   const fetchToken = async () => {
     try {
-        const response = await axios.get("http://localhost:5000/user/auth/check", { withCredentials: true });
+        const response = await axios.get("https://codecollab-hy98.onrender.com/user/auth/check", { withCredentials: true });
         if(response.data.token){
           try{
             const decodedToken = jwtDecode(response.data.token);
@@ -41,7 +41,7 @@ useEffect(() => {
 }, []);
 
 const handleLogout = async () => {
-  const response = await axios.get("http://localhost:5000/user/logout",{withCredentials:true});
+  const response = await axios.get("https://codecollab-hy98.onrender.com/user/logout",{withCredentials:true});
   if (response.data === "cleared"){
     toast.success("Logged Out !!");
     setTimeout(() => {

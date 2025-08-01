@@ -7,7 +7,7 @@ export const initSocket = async () =>{
         timeout: 10000,
         transports: ['websocket'],
     };
-    const socket =  io("http://localhost:5000", options);
+    const socket =  io("https://codecollab-hy98.onrender.com", options);
     socket.on("connect", () => {
         console.log("✅ Connected to Socket.io server, ID:", socket.id);
     });
