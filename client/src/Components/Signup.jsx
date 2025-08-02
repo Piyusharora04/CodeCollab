@@ -12,7 +12,7 @@ function Signup({ onClose, onSwitchToLogin }) {
   // useEffect(() => {
   //   const init = async () => {
 
-  //     const err = await axios.get("https://codecollab-hy98.onrender.com/user/signup");
+  //     const err = await axios.get("http://localhost:5000/user/signup");
   //     if(err) {
   //       console.log(err);
   //     }
@@ -41,11 +41,11 @@ function Signup({ onClose, onSwitchToLogin }) {
         formDataToSend.append("profileImage", formData.profileImage);
     }
 
-    const response = await axios.post("https://codecollab-hy98.onrender.com/user/signup", formDataToSend, {
+    const response = await axios.post("http://localhost:5000/user/signup", formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" }
     });
     // console.log(formData);
-    // const response = await axios.post("https://codecollab-hy98.onrender.com/user/signup", {formData});
+    // const response = await axios.post("http://localhost:5000/user/signup", {formData});
     if(response.data === "userCreated"){
       toast.success("User Created! Please Login", {
         autoClose: 4000,

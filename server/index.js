@@ -13,7 +13,7 @@ const { setupBackend } = require("./backend.js");
 // Enable CORS
 // app.use(cors());
 app.use(cors({
-  origin: "https://code-collab-ascq.vercel.app",
+  origin: ["https://code-collab-ascq.vercel.app","http://localhost:5173"],
   credentials: true,
 }));
 app.use(express.json());

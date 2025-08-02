@@ -53,7 +53,7 @@ function Home({ loginVal, signupVal }) {
     const fetchToken = async () => {
       try {
         const response = await axios.get(
-          "https://codecollab-hy98.onrender.com/user/auth/check",
+          "http://localhost:5000/user/auth/check",
           { withCredentials: true }
         );
         if (response.data.token) {

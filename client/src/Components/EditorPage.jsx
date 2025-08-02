@@ -119,8 +119,8 @@ function EditorPage() {
     setOutput("Compiling...");
 
     try {
-      const response = await axios.post("https://codecollab-hy98.onrender.com/compile", {
-        code: codeRef.current, // Use the latest code from editor
+      const response = await axios.post("http://localhost:5000/compile", {
+        code: codeRef.current, 
         language: selectedLanguage,
       });
 

@@ -18,7 +18,7 @@ function Login({ onClose, onSwitchToSignup }) {
     // Handle login logic here
     // console.log('Login:', formData);
 
-    const response = await axios.post("https://codecollab-hy98.onrender.com/user/login", {formData}, {withCredentials:true});
+    const response = await axios.post("http://localhost:5000/user/login", {formData}, {withCredentials:true});
     console.log(response.data);
     if(response.data === "userLoggedin"){
       toast.success("Logged in");
