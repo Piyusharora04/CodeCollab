@@ -78,6 +78,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/auth/check", (req,res) => {
     const token = req.cookies.authToken;
+
     if (!token) {
         return res.status(401).json({ message: "No token found" });
     }
@@ -89,7 +90,11 @@ router.get("/auth/check", (req,res) => {
 router.get("/logout", (req,res) => {
     res.clearCookie("authToken");
     res.send("cleared");
-})
+});
+
+router.get("/", (req, res) => {
+    res.send("User Route is working");
+});
 
 
 module.exports = router;
