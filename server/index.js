@@ -24,8 +24,9 @@ setupBackend(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["https://code-collab-ascq.vercel.app","http://localhost:5173"],
     methods: ["GET", "POST"],
+    credentials: true, // Allow cookies to be sent with requests
   },
 });
 
