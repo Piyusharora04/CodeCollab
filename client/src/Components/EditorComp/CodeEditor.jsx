@@ -5,29 +5,32 @@ import LanguageSelector from "../EditorComp/LanguageSelector";
 import { LANGUAGE_VERSIONS, CODE_SNIPPETS } from "../../constants";
 import axios from "axios";
 
-function CodeEditor({ socketRef, roomId, onCodeChange, onLanguageChange}) {
+function CodeEditor({ socketRef, roomId, onCodeChange, onLanguageChange }) {
   const editorRef = useRef(null);
   const [language, setLanguage] = useState("javascript");
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
+  
+  // A flag to indicate if the change is from a remote source
+  const isRemoteChange = useRef(false);
 
   // Sync code with incoming real-time updates
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
         if (code !== null && code !== editorRef.current.getValue()) {
+          // Set the flag before programmatically changing the editor's value
+          isRemoteChange.current = true;
           editorRef.current.setValue(code);
         }
       });
 
+      // No changes needed for these listeners
       socketRef.current.on(ACTIONS.SYNC_CODE, ({ socketId }) => {
-        // Send the current code to the new user
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
       });
-      
 
       socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang }) => {
-        // console.log("language change detected to ",lang);
         setLanguage(lang);
         onLanguageChange(lang);
       });
@@ -41,6 +44,14 @@ function CodeEditor({ socketRef, roomId, onCodeChange, onLanguageChange}) {
 
   // Handle editor changes
   const handleEditorChange = (newCode) => {
+    // If the flag is true, it means the change came from the socket.
+    // We should ignore it and reset the flag.
+    if (isRemoteChange.current) {
+      isRemoteChange.current = false;
+      return;
+    }
+
+    // Otherwise, this is a local user's change. Proceed to emit.
     setCode(newCode);
     onCodeChange(newCode);
     socketRef.current.emit(ACTIONS.CODE_CHANGE, {
@@ -49,40 +60,18 @@ function CodeEditor({ socketRef, roomId, onCodeChange, onLanguageChange}) {
     });
   };
 
-  // Store editor reference
+  // No changes needed below this line
   const handleEditorMount = (editor) => {
     editorRef.current = editor;
   };
 
-  // Handle language selection
   const handleLanguageChange = (newLang) => {
     setLanguage(newLang);
     onLanguageChange(newLang);
     socketRef.current.emit(ACTIONS.LANGUAGE_CHANGE, { roomId, lang: newLang });
-    // const newCode = CODE_SNIPPETS[newLang] || "";
-    // setCode(newCode);
-    // if (editorRef.current) {
-    //   editorRef.current.setValue(newCode); // Update Monaco Editor manually
-    // }
   };
 
-  // Run code using Piston API
-  const runCode = async () => {
-    setOutput("Running...");
-
-    try {
-      const response = await axios.post("https://emkc.org/api/v2/piston/execute", {
-        language,
-        version: LANGUAGE_VERSIONS[language],
-        files: [{ content: code }],
-      });
-
-      setOutput(response.data.run.output || "No output");
-    } catch (error) {
-      console.error("Execution Error:", error);
-      setOutput("Error running code.");
-    }
-  };
+  // ... (rest of your component is unchanged)
 
   return (
     <div style={{ height: "600px", display: "flex", flexDirection: "column" }}>
@@ -104,17 +93,6 @@ function CodeEditor({ socketRef, roomId, onCodeChange, onLanguageChange}) {
           minimap: { enabled: false },
         }}
       />
-
-      {/* Run Code Button */}
-      {/* <button onClick={runCode} style={{ marginTop: "10px", padding: "8px", cursor: "pointer" }}>
-        Run Code
-      </button> */}
-
-      {/* Output Section */}
-      {/* <div style={{ marginTop: "10px", padding: "10px", backgroundColor: "#1e1e1e", color: "white" }}>
-        <strong>Output:</strong>
-        <pre>{output}</pre>
-      </div> */}
     </div>
   );
 }
