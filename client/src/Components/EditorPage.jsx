@@ -67,13 +67,13 @@ function EditorPage() {
           toast.success(`${username} joined the room.`);
         }
         setClients(clients);
-        socketRef.current.on(ACTIONS.SYNC_CODE, ({ socketId }) => {
-          socketRef.current.emit(ACTIONS.CODE_CHANGE, {
-            roomId,
-            code: codeRef.current, // Send the latest code
-            socketId,
-          });
-        });
+        // socketRef.current.on(ACTIONS.SYNC_CODE, ({ socketId }) => {
+        //   socketRef.current.emit(ACTIONS.CODE_CHANGE, {
+        //     roomId,
+        //     code: codeRef.current, // Send the latest code
+        //     socketId,
+        //   });
+        // });
       });
 
       socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
